@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>商品详情</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+  <!-- 头部 -->
+    <header class="header">
+        <h1 class="logo">MyShop</h1>
+
+        <!-- 导航菜单 -->
+    <nav class="nav-menu">
+        <a href="/" class="nav-item">首页</a>
+        <a href="/recommend.html" class="nav-item">🔥 推荐</a>
+        <a href="/cart.html" class="nav-item">🛒 购物车</a>
+        <a href="#" class="nav-item">待定选项</a>
+        <a href="#" class="nav-item">待定选项</a>
+        <a href="/profile.html" class="nav-item">📱 我的</a>
+    </nav>
+
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <input type="search" placeholder="搜索商品..." id="searchInput">
+            <button class="search-btn" onclick="searchProducts()">搜索</button>
+            
+        </div>
+
+        <!-- 动态用户状态 -->
+<div id="authSection">
+            <div class="user-status" id="userStatus">
+                <a href="/login.html" class="nav-item" id="loginLink">登录</a>
+                <a href="/register.html" class="nav-item" id="registerLink">注册</a>
+            </div>
+  <!-- 登录后显示 -->
+  <div id="userProfile" style="display: none;">
+<img id="avatar" class="user-avatar" src="" alt="用户头像">
+    <span id="username"></span>
+  <a href="/profile.html">个人中心</a>
+  <a href="/orders.html">我的订单</a>
+    <button onclick="logout()">退出</button>
+  </div>
+</div>
+    </header>
+
+  <main class="product-container">
+    <!-- 商品主区域 -->
+    <div class="product-main">
+      <img id="productImage" src="" alt="商品主图">
+      <div class="product-info">
+        <h1 id="productName"></h1>
+        <p class="price" id="productPrice"></p>
+        <p class="stock" id="productStock"></p>
+        <div class="actions">
+          <input type="number" id="quantity" value="1" min="1">
+          <button onclick="addToCart()">加入购物车</button>
+          <button onclick="toggleFavorite()" id="favoriteBtn">收藏</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 商品描述 -->
+    <section class="product-description">
+      <h2>商品描述</h2>
+      <div id="productDescription"></div>
+    </section>
+
+    <!-- 推荐商品 -->
+    <section class="recommended-products">
+      <h2>猜你喜欢</h2>
+      <div id="recommendedGrid" class="product-grid"></div>
+    </section>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/product.js"></script>
+</body>
+</html>

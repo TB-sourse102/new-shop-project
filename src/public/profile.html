@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - MyShop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+    <!-- 公共头部 -->
+    <header class="header">
+        <h1 class="logo">MyShop</h1>
+
+        <!-- 导航菜单 -->
+    <nav class="nav-menu">
+        <a href="/" class="nav-item">首页</a>
+        <a href="/recommend.html" class="nav-item">🔥 推荐</a>
+        <a href="/cart.html" class="nav-item">🛒 购物车</a>
+        <a href="#" class="nav-item">待定选项</a>
+        <a href="#" class="nav-item">待定选项</a>
+        <a href="/profile.html" class="nav-item">📱 我的</a>
+    </nav>
+
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <input type="search" placeholder="搜索商品..." id="searchInput">
+            <button class="search-btn" onclick="searchProducts()">搜索</button>
+            
+        </div>
+
+        <!-- 动态用户状态 -->
+<div id="authSection">
+            <div class="user-status" id="userStatus">
+                <a href="/login.html" class="nav-item" id="loginLink">登录</a>
+                <a href="/register.html" class="nav-item" id="registerLink">注册</a>
+            </div>
+  <!-- 登录后显示 -->
+  <div id="userProfile" style="display: none;">
+<img id="avatar" class="user-avatar" src="" alt="用户头像">
+    <span id="username"></span>
+  <a href="/profile.html">个人中心</a>
+  <a href="/orders.html">我的订单</a>
+    <button onclick="logout()">退出</button>
+  </div>
+</div>
+    </header>
+
+    <!-- 个人中心主体 -->
+
+
+    <div class="profile-container">
+      <!-- 头像上传 -->
+      <div class="avatar-section">
+        <img id="avatarPreview" src="" alt="用户头像">
+        <input type="file" id="avatarUpload" accept="image/*">
+        <button onclick="uploadAvatar()">更新头像</button>
+      </div>
+
+      <!-- 基本信息表单 -->
+      <form id="profileForm">
+        <div class="form-group">
+          <label>用户名</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>邮箱</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>手机号</label>
+          <input type="tel" name="phone">
+        </div>
+        <button type="submit">保存修改</button>
+      </form>
+
+      <!-- 修改密码 -->
+      <div class="password-section">
+        <h3>修改密码</h3>
+        <form id="passwordForm">
+          <input type="password" name="oldPassword" placeholder="原密码" required>
+          <input type="password" name="newPassword" placeholder="新密码" required>
+          <button type="submit">修改密码</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+</html>

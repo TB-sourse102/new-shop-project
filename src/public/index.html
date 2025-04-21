@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的小店</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <h1 class="logo">MyShop</h1>
+
+        <!-- 导航菜单 -->
+    <nav class="nav-menu">
+        <a href="/" class="nav-item">首页</a>
+        <a href="/recommend.html" class="nav-item">🔥 推荐</a>
+        <a href="/cart.html" class="nav-item">🛒 购物车</a>
+        <a href="#" class="nav-item">待定选项</a>
+        <a href="#" class="nav-item">待定选项</a>
+        <a href="/profile.html" class="nav-item">📱 我的</a>
+    </nav>
+
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <input type="search" placeholder="搜索商品..." id="searchInput">
+            <button class="search-btn" onclick="searchProducts()">搜索</button>
+            
+        </div>
+
+        <!-- 动态用户状态 -->
+<div id="authSection">
+            <div class="user-status" id="userStatus">
+                <a href="/login.html" class="nav-item" id="loginLink">登录</a>
+                <a href="/register.html" class="nav-item" id="registerLink">注册</a>
+            </div>
+  <!-- 登录后显示 -->
+  <div id="userProfile" style="display: none;">
+<img id="avatar" class="user-avatar" src="" alt="用户头像">
+    <span id="username"></span>
+  <a href="/profile.html">个人中心</a>
+  <a href="/orders.html">我的订单</a>
+    <button onclick="logout()">退出</button>
+  </div>
+</div>
+    </header>
+
+    <!-- 内容区 -->
+
+        <!-- 欢迎横幅 -->
+        <section class="banner">
+            <h2>欢迎来到我的小店</h2>
+            <p>精选好物 · 限时特惠</p>
+        </section>
+
+        <!-- 商品展示 -->
+        <div id="products" class="products"></div>
+
+
+    <script src="/js/common.js"></script>
+
+    <script >
+       // 获取推荐商品
+        fetch('/api/products/recommended')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    renderProducts(data.data);
+                }
+            });
+
+        // 渲染商品
+        function renderProducts(products) {
+            const container = document.getElementById('products');
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+    <a href="/product.html?id=${product.id}" class="product-link">
+      <div class="image-container">
+        <img src="${product.main_image}" alt="${product.name}">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">${product.name}</h3>
+        <div class="price-stock">
+          <span class="price">¥${product.price.toFixed(2)}</span>
+          <span class="stock">库存 ${product.stock}件</span>
+        </div>
+        ${product.description ? 
+          `<p class="description">${product.description}</p>` : ''}
+      </div>
+    </a>
+  </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

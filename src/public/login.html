@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录 - MyShop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+    .container { max-width: 400px; margin: 50px auto; padding: 20px; }
+    .form-group { margin-bottom: 15px; }
+    input { width: 100%; padding: 8px; }
+    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; }
+    .error { color: red; margin-top: 5px; }
+  </style>
+</head> 
+<body>
+    <!-- 公共头部 -->
+    <header class="header">
+        <h1 class="logo">MyShop</h1>
+        <a href="/" class="back-home">返回首页</a>
+    </header>
+
+    <!-- 登录表单 -->
+<div class="container">
+    <h2>登录</h2>
+    <form id="loginForm">
+       <input type="hidden" name="_csrf" value="{{csrfToken}}">
+      <div class="form-group">
+        <input type="text" name="username" placeholder="用户名" required>
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" placeholder="密码" required>
+      </div>
+      <button type="submit">登录</button>
+      <div id="error" class="error"></div>
+    </form>
+    
+  </div>
+
+    <script >
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = {
+        username: e.target.username.value,
+//        email: e.target.email.value,
+        password: e.target.password.value
+      };
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.message || '登录失败');
+        }
+
+        // 保存Token并跳转
+        localStorage.setItem('token', data.data.token);
+        window.location.href = '/';
+      } catch (error) {
+        document.getElementById('error').textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>
