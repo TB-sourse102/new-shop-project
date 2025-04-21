@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - run: npm install
+      - run: npm run build  # 如果有构建步骤
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /path/to/your/project
+            git pull origin main
+            npm install --production
+            pm2 restart app  # 重启你的 Node.js 应用
