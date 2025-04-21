@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI Pipeline  # 工作流名称（自定义）
+
+on:  # 触发条件
+  push:
+    branches: [main]  # 当 main 分支有 push 时触发
+  pull_request:
+    branches: [main]  # 当向 main 分支发起 PR 时触发
+
+jobs:  # 定义任务
+  build-and-test:
+    runs-on: ubuntu-latest  # 运行环境（推荐 Ubuntu）
+    steps:
+      # 步骤 1：拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 步骤 2：安装 Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.14.0  # 根据你的项目指定版本
+
+      # 步骤 3：安装依赖并运行测试
+      - name: Install dependencies and test
+        run: |
+          npm install
+          npm run test
