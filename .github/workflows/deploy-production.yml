@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 22.14.0
       - run: npm install
-      - run: npm run build  # 如果有构建步骤
+      
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
