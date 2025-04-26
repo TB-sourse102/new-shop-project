@@ -22,6 +22,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /path/to/your/project
-            git pull origin main
+            git pull origin master
             npm install --production
             pm2 restart app  # 重启你的 Node.js 应用
